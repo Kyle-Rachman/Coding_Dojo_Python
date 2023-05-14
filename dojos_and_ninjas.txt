@@ -1,0 +1,52 @@
+INSERT INTO dojos (id,name)
+VALUES (1, "Kick Dojo"),
+(2, "Punch Dojo"),
+(3, "Little Johnny Drop Tables Dojo");
+
+------------------------------------------
+
+DELETE
+FROM dojos;
+
+------------------------------------------
+
+INSERT INTO dojos (id,name)
+VALUES (1, "Smack Dojo"),
+(2, "Hit Dojo"),
+(3, "Little Tommy Drop Tables Dojo");
+
+------------------------------------------
+
+INSERT INTO ninjas(dojos_id,first_name,last_name,age,created_at,updated_at)
+VALUES (1,"Ky","Ra",23,NOW(),NOW()),
+(1,"Ka","Ra",21,NOW(),NOW()),
+(1,"Mi","Ra",68,NOW(),NOW());
+
+------------------------------------------
+
+INSERT INTO ninjas(dojos_id,first_name,last_name,age,created_at,updated_at)
+VALUES (2,"Ma","Br",25,NOW(),NOW()),
+(2,"Ch","Bl",24,NOW(),NOW()),
+(2,"Ai","Ki",19,NOW(),NOW());
+
+------------------------------------------
+
+INSERT INTO ninjas(dojos_id,first_name,last_name,age,created_at,updated_at)
+VALUES (3,"Re","Ho",25,NOW(),NOW()),
+(3,"Ma","Sa",25,NOW(),NOW()),
+(3,"St","Sm",23,NOW(),NOW());
+
+------------------------------------------
+
+SELECT * FROM ninjas
+WHERE (dojos_id = 1);
+
+------------------------------------------
+
+SELECT * FROM ninjas
+WHERE (dojos_id = 3);
+
+------------------------------------------
+
+SELECT * FROM dojos
+WHERE dojos.id = (SELECT dojos_id FROM ninjas ORDER BY dojos_id DESC LIMIT 1);
