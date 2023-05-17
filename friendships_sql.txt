@@ -1,0 +1,71 @@
+INSERT INTO users (first_name, last_name)
+VALUES ("Ky", "Ra"),
+("Ma", "Sa"),
+("Re", "Ho"),
+("Ma", "Br"),
+("Ch","Bl"),
+("Wi","Un");
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (1,2), (1,4), (1,6);
+
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (2,1), (2,3), (2,5);
+
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (3,2), (3,5);
+
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (4,3);
+
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (5,1), (5,6);
+
+--------------------------------------------
+
+INSERT INTO friendships (user_id,friend_id)
+VALUES (6,2), (6,3);
+
+--------------------------------------------
+
+SELECT users.first_name, users.last_name, users2.first_name AS friend_first_name, users2.last_name AS friend_last_name
+FROM users
+JOIN friendships ON friendships.user_id = users.id
+LEFT JOIN users AS users2 ON users2.id = friendships.friend_id
+
+--------------------------------------------
+
+SELECT users.first_name, users.last_name
+FROM users
+JOIN friendships ON friendships.user_id = users.id
+WHERE friendships.friend_id = 1
+
+--------------------------------------------
+
+SELECT COUNT(*)
+FROM friendships
+
+--------------------------------------------
+
+SELECT user_id, COUNT(user_id)
+FROM friendships
+GROUP BY user_id
+ORDER BY COUNT(user_id) DESC
+LIMIT 1;
+
+--------------------------------------------
+
+SELECT DISTINCT first_name, last_name
+FROM users
+JOIN friendships ON friendships.user_id = users.id
+WHERE friendships.friend_id = 3 OR friendships.user_id = 3
+ORDER BY first_name, last_name
