@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkerboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <table id="board">
+        {% for i in range(rows//2) %}
+            <tr>
+                {% for i in range(cols//2) %}
+                    <td class="dark" style="background-color: {{ dark_color }}"></td>
+                    <td class="light" style="background-color: {{ light_color }}"></td>
+                {% endfor %}
+                {% if (cols%2) != 0: %}
+                    <td class="dark" style="background-color: {{ dark_color }}"></td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% for i in range(cols//2) %}
+                    <td class="light" style="background-color: {{ light_color }}"></td>
+                    <td class="dark" style="background-color: {{ dark_color }}"></td>
+                {% endfor %}
+                {% if (cols%2) != 0: %}
+                    <td class="light" style="background-color: {{ light_color }}"></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        {% if (rows%2) != 0: %}
+                <tr>
+                    {% for i in range(cols//2) %}
+                        <td class="dark" style="background-color: {{ dark_color }}"></td>
+                        <td class="light" style="background-color: {{ light_color }}"></td>
+                    {% endfor %}
+                    {% if (cols%2) != 0: %}
+                        <td class="dark" style="background-color: {{ dark_color }}"></td>
+                    {% endif %}
+                </tr>
+            {% endif %}
+    </table>
+</body>
+</html>
