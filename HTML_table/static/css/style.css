@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+    background-color: lightblue;
+}
+
+.table-striped > tbody > tr:nth-child(even) > td {
+    background-color: lightgray;
+}
