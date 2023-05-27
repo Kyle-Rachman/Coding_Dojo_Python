@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    width: auto;
+    margin: 50px;
+}
+
+.container > table{
+    text-align: center;
+    min-width: max-content;
+    margin: 20px 0px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+button{
+    padding: 2px 10px;
+    box-shadow: 2px 2px black;
+}
