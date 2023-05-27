@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    overflow-y: auto;
+    max-height: 80%;
+    width: 350px;
+    height: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.survey{
+    border-radius: 15px;
+    background-color:rgb(47, 60, 79);
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+    height: auto;
+}
+
+.results{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.mb-3{
+    text-align: left;
+}
+
+.survey > h1, h2{
+    color: goldenrod;
+}
+
+button{
+    background-color: goldenrod;
+    border-radius: 5px;
+    padding: 2px 5px;
+    box-shadow: 2px 2px black;
+}
