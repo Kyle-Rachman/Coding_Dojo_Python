@@ -1,0 +1,38 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.flex-container{
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+}
+
+.col-1{
+    width: auto;
+    padding: 20px;
+    background-color: rgb(88, 88, 88);
+    color: white;
+}
+
+.col-1 > h2{
+    color: lightseagreen;
+    text-align: center;
+}
+
+form > button{
+    margin: 20px 0px 10px;
+    padding: 2px 5px;
+    box-shadow: 2px 2px black;
+}
+
+.display{
+    border: 2px solid white;
+    margin: 15px 0px;
+    padding: 10px 10px 0px;
+}
+
+.col-1 a{
+    color: lightseagreen
+}
