@@ -51,3 +51,8 @@ class Dojo:
             dojo.ninjas.append(ninja.Ninja(ninja_data))
         
         return dojo.ninjas
+    
+    @classmethod
+    def edit_dojo_ninja(cls, data):
+        query = "UPDATE dojos LEFT JOIN ninjas on ninjas.dojos_id = dojos.id SET first_name = %(fname)s, last_name = %(lname)s, age = %(age)s WHERE dojos.id = %(dojo)s AND ninjas.id = %(id)s;"
+        return connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)

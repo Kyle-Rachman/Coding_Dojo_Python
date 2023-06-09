@@ -18,3 +18,20 @@ def create_ninja():
     }
     Ninja.save_ninja(data)
     return redirect(url_for("dojo_info", x = data["dojo"]))
+
+@app.route("/ninjas/edit/<int:id>")
+def edit_ninja(id):
+    ninja = Ninja.get_one(id)
+    return render_template("edit_ninja.html", ninja = ninja)
+
+@app.route("/editninja", methods=["POST"])
+def process():
+    data = {
+        "id" : int(request.form["id"]),
+        "dojo" : int(request.form["dojo"]),
+        "fname" : request.form["fname"],
+        "lname" : request.form["lname"],
+        "age" : int(request.form["age"])
+    }
+    Dojo.edit_dojo_ninja(data)
+    return redirect(url_for("dojo_info", x = data["dojo"]))

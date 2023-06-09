@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, url_for
 from flask_app.models.dojo import Dojo
 from flask_app.models.ninja import Ninja
 
@@ -26,3 +26,10 @@ def dojo_info(x):
     }
     ninjas = Dojo.get_dojo_ninjas(data)
     return render_template("dojo_info.html", dojo = dojo, ninjas = ninjas)
+
+@app.route("/deleteninja/<int:id>/<int:dojo_id>")
+def delete_ninja(id, dojo_id):
+    ninja_id = id
+    dojo_id = dojo_id
+    Ninja.destroy_ninja(ninja_id)
+    return redirect(url_for('dojo_info', x = dojo_id))
