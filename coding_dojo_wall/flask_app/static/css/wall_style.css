@@ -74,6 +74,7 @@ button{
     color: darkred;
     border-radius: 5px;
     font-weight: bold;
+    width: 470px;
 }
 
 .errors > p{

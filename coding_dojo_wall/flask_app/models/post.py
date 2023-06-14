@@ -68,7 +68,7 @@ class Post:
         is_valid = True
         if not post["content"]:
             is_valid = False
-            flash("Post content must not be blank")
+            flash("* Post content must not be blank", "posts")
         return is_valid
     
     @classmethod

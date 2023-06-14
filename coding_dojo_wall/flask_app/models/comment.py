@@ -21,7 +21,7 @@ class Comment:
         is_valid = True
         if not comment["content"]:
             is_valid = False
-            flash("Comment content must not be blank")
+            flash("Comment content must not be blank", "comments")
         return is_valid
     
     @classmethod
