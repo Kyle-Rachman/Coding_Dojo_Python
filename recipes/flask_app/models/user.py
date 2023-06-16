@@ -2,6 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import app
 from flask import flash
 import re
+from flask_app.models import recipe
 
 class User:
     def __init__(self, data):
@@ -90,3 +91,27 @@ class User:
         if len(results) < 1:
             return False
         return cls(results[0])
+    
+    @classmethod
+    def get_user_recipes(cls, id):
+        query = "SELECT * from users LEFT JOIN recipes on recipes.users_id = users.id WHERE users.id = %(id)s=;"
+        data = {"id" : id}
+        results = connectToMySQL('recipes_schema').query_db(query, data)
+        post = cls(results[0])
+
+        for row_from_db in results:
+            recipe_data = {
+                "id" : row_from_db["recipes.id"],
+                "name" : row_from_db["recipes.name"],
+                "description" : row_from_db["recipes.description"],
+                "under" : row_from_db["recipes.under"],
+                "instructions" : row_from_db["recipes.instructions"],
+                "date_made" : row_from_db["recipes.date_made"],
+                "created_at" : row_from_db["recipes.created_at"],
+                "updated_at" : row_from_db["recipes.updated_at"],
+                "users_id" : row_from_db["recipes.users_id"]
+            }
+
+            post.recipes.append(recipe.Recipe(recipe_data))
+        
+        return post.recipes

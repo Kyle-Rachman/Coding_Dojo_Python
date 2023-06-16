@@ -52,6 +52,7 @@ def edit_recipe(id):
     if "user_id" not in session:
         return redirect("/")
     recipe = Recipe.get_one(id)
+    print(recipe.date_made)
     return render_template("edit_recipe.html", recipe = recipe)
 
 @app.route("/edit", methods=['POST'])
