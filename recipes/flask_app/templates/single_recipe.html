@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Welcome, {{ user.first_name }}</h2>
+            <h2>Welcome, {{ session["user_name"] }}</h2>
             <div class="links">
                 <a href="/recipes">Back to Recipes</a>
                 <a href="/logout">Logout</a>
@@ -20,7 +20,7 @@
         </div>
         <div class="subheader">
             <h2>{{ recipe.name }}</h2>
-            <h4>Posted by: {{ recipe.chef }}</h4>
+            <h4>Posted by: {{ recipe.chef.first_name }} {{ recipe.chef.last_name }}</h4>
         </div>
         <div class="content">
             <table class="table table-borderless">
@@ -31,7 +31,11 @@
                     </tr>
                     <tr>
                         <td>Under 30 minutes?</td>
-                        <td>{{ recipe.under }}</td>
+                        <td>{% if recipe.under %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}</td>
                     </tr>
                     <tr>
                         <td>Instructions:</td>

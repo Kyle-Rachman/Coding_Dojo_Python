@@ -1,4 +1,4 @@
 from flask import Flask
 
 app = Flask(__name__)
-app.secret_key = "recipe for success"
+app.secret_key = "to log in, or not to log in"
