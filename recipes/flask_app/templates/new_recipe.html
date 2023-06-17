@@ -25,7 +25,7 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        <form action="/create" method="post">
+        <form action="/recipes/create" method="post">
             <div class="gen-info">
                 <form>
                     <div class="row mb-3">
@@ -57,6 +57,7 @@
                     <input type="radio" id="under-no" name="under" value="0">
                     <label for="under-no" class="form-label">No</label>
                 </div>
+                <input type="hidden" name="user" value = "{{ session['user_id'] }}">
                 <button type="submit">Submit</button>
             </div>
         </form>
