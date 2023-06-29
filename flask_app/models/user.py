@@ -58,12 +58,13 @@ class User:
         return cls(results[0])
 
     @classmethod
-    def get_user_by_email(cls, data):
+    def get_user_by_email(cls, email):
         query = """
             SELECT *
             FROM users
             WHERE email = %(email)s
         ;"""
+        data = {"email" : email}
         results = connectToMySQL('recipes_schema').query_db(query, data)
         if not results:
             return None
@@ -145,7 +146,7 @@ class User:
 
     @staticmethod
     def login(data):
-        user_in_db = User.get_user_by_email(data)
+        user_in_db = User.get_user_by_email(data["email"])
         if not user_in_db:
             flash("Incorrect email/password!", "login")
             return False
