@@ -26,7 +26,7 @@
                 {% endif %}
             {% endwith %}
         <form action="/recipes/edit" method="post">
-            <input type="hidden" name="id" value="{{ recipe.id }}">
+            <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
             <div class="gen-info">
                 <form>
                     <div class="row mb-3">

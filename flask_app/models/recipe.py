@@ -25,7 +25,7 @@ class Recipe:
             VALUES (%(name)s, %(description)s, %(under)s, %(instructions)s, %(date_made)s, %(users_id)s)
         ;"""
         if not Recipe.validate_recipe(data):
-            return redirect("/recipes/new")
+            return False
         return connectToMySQL('recipes_schema').query_db(query, data)
 
     # READ - MODELS Recipe
@@ -67,6 +67,8 @@ class Recipe:
         ;"""
         data = {"id" : recipe_id}
         results = connectToMySQL('recipes_schema').query_db(query, data)
+        if not results:
+            return None
         return cls(results[0])
     
     @classmethod
@@ -80,8 +82,18 @@ class Recipe:
         ;"""
         data = {"id" : recipe_id}
         results = connectToMySQL('recipes_schema').query_db(query, data)
+        if not results:
+            return None
         recipe = cls(results[0])
-        recipe.chef = user.User.get_user_by_id_with_recipes(results[0]['users.id'])
+        recipe.chef = user.User({
+            'id' : results[0]['users.id'],
+            'first_name' : results[0]['first_name'],
+            'last_name' : results[0]['last_name'],
+            'email' : results[0]['email'],
+            'password' : results[0]['password'],
+            'created_at' : results[0]['users.created_at'],
+            'updated_at' : results[0]['users.updated_at']
+        })
         return recipe
     
     # UPDATE - MODELS Recipe
@@ -91,9 +103,12 @@ class Recipe:
         query = """
                 UPDATE recipes
                 SET name = %(name)s, description = %(description)s, under = %(under)s, instructions = %(instructions)s, date_made = %(date_made)s
-                WHERE id = %(id)s
+                WHERE id = %(recipe_id)s
             ;"""
-        return connectToMySQL('recipes_schema').query_db(query, data)
+        if not Recipe.validate_recipe(data):
+            return False
+        connectToMySQL('recipes_schema').query_db(query, data)
+        return True
     
     # DELETE - MODELS Recipe
 

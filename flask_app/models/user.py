@@ -17,7 +17,7 @@ class User:
         self.updated_at = data['updated_at']
         self.recipes = []
 
-    # CREATE - MODELS
+    # CREATE - MODELS User
 
     @classmethod
     def create_user(cls, data):
@@ -26,11 +26,11 @@ class User:
             VALUES (%(fname)s, %(lname)s, %(email)s, %(pword)s)
         ;"""
         if not User.validate_user(data):
-            return redirect("/")
+            return False
         data["pword"] = bcrypt.generate_password_hash(data["pword"])
         return connectToMySQL('recipes_schema').query_db(query, data)
 
-    # READ - MODELS
+    # READ - MODELS User
 
     @classmethod
     def get_all_users(cls):
@@ -53,6 +53,8 @@ class User:
         ;"""
         data = {"id" : user_id}
         results = connectToMySQL('recipes_schema').query_db(query, data)
+        if not results:
+            return None
         return cls(results[0])
 
     @classmethod
@@ -64,7 +66,7 @@ class User:
         ;"""
         results = connectToMySQL('recipes_schema').query_db(query, data)
         if not results:
-            return False
+            return None
         return cls(results[0])
     
     @classmethod
@@ -78,6 +80,8 @@ class User:
         ;"""
         data = {"id" : user_id}
         results = connectToMySQL('recipes_schema').query_db(query, data)
+        if not results:
+            return None
         user = cls(results[0])
         if results[0]["description"]:
             for row_from_db in results:
@@ -93,7 +97,7 @@ class User:
                     "users_id" : row_from_db["users_id"]
                 }
             user.recipes.append(recipe.Recipe(recipe_data))
-        return cls(results[0])
+        return user
     
     # VALIDATIONS
 
@@ -144,8 +148,8 @@ class User:
         user_in_db = User.get_user_by_email(data)
         if not user_in_db:
             flash("Incorrect email/password!", "login")
-            return redirect("/")
+            return False
         if not bcrypt.check_password_hash(user_in_db.password, data["password"]):
             flash("Incorrect email/password!", "login")
-            return redirect("/")
+            return False
         return user_in_db.id

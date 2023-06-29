@@ -10,7 +10,9 @@ bcrypt = Bcrypt(app)
 def register():
     data = request.form.copy()
     session["user_id"] = user.User.create_user(data)
-    session["user_name"] = user.User.get_user_by_id(session["user_id"]).first_name + " " + user.User.get_user_by_id(session["user_id"]).last_name
+    if not session["user_id"]:
+        return redirect("/")
+    session["user_name"] = user.User.get_user_by_id(session["user_id"]).first_name
     return redirect("/recipes")
 
 # READ - Controller Users
@@ -23,7 +25,9 @@ def index():
 def login():
     data = request.form
     session["user_id"] = user.User.login(data)
-    session["user_name"] = user.User.get_user_by_id(session["user_id"]).first_name + " " + user.User.get_user_by_id(session["user_id"]).last_name
+    if not session["user_id"]:
+        return redirect("/")
+    session["user_name"] = user.User.get_user_by_id(session["user_id"]).first_name
     return redirect("/recipes")
 
 @app.route("/logout")
