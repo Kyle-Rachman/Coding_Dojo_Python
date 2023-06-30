@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Share</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/site.js') }}" async></script>
+</head>
+<body>
+    <h1 style="color:rgb(182, 1, 182); margin: 20px;"><strong>Recipe Share</strong></h1>
+    <div class="container">
+        <div class="registration">
+            <h2 style="color: rgb(0, 110, 255)">Register</h2>
+            <div class="errors" id="registration-errors"></div>
+            <form action="/register" method="post" id="registration-form">
+                <label for="first_name" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="first_name" name="fname">
+                <label for="last_name" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="last_name" name="lname">
+                <label for="registration-email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="registration-email" name="email">
+                <label for="registration-password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="registration-password" name="pword">
+                <label for="confirm" class="form-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirm" name="confirm">
+                <button type="submit" style="color: white; background-color: rgb(0, 110, 255)">Register</button>
+            </form>
+        </div>
+        <div class="login">
+            <h2 style="color: rgb(86, 229, 86)">Login</h2>
+            <div class="errors" id="login-errors"></div>
+            <form action="/login" method="post" id="login-form">
+                <label for="login-email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="login-email" name="email">
+                <label for="login-password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="login-password" name="password">
+                <button type="submit" style="color: white; background-color: rgb(86, 229, 86)">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
