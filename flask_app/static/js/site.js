@@ -112,7 +112,7 @@ async function get_recipes() {
             actions.innerHTML = `<a href="recipes/${data[i].id}">View Recipe</a>`
             if (data[i].users_id == session_user_id){
                 actions.innerHTML += ` | <a href="/recipes/${data[i].id}">Edit</a> `
-                actions.innerHTML += `| <a href="/recipes/destroy/${data[i].id}">Delete</a>`
+                actions.innerHTML += `| <a href="" onclick="destroy_recipe(${data[i].id});return false;">Delete</a>`
             }
             row.appendChild(actions);
             recipes.appendChild(row);
@@ -143,7 +143,7 @@ async function get_new_recipe() {
     actions.innerHTML = `<a href="recipes/${data.id}">View Recipe</a>`
     if (data.users_id == session_user_id){
         actions.innerHTML += ` | <a href="/recipes/edit/${data.id}">Edit</a> `
-        actions.innerHTML += `| <a href="/recipes/destroy/${data.id}">Delete</a>`
+        actions.innerHTML += `| <a href="" onclick="destroy_recipe(${data.id});return false;">Delete</a>`
     }
     row.appendChild(actions);
     recipes.appendChild(row);
@@ -197,5 +197,18 @@ async function update_recipe() {
     else{
         under_no.setAttribute("checked","")
         under_yes.removeAttribute("checked")
+    }
+}
+
+async function destroy_recipe(recipe_id) {
+    let response = await fetch(`http://localhost:5000/recipes/destroy/${recipe_id}`)
+    let data = await response.json()
+    if (data["message"]) {
+        let recipes = document.getElementById('recipes-table-body');
+        recipes.innerHTML = ""
+        get_recipes()
+    }
+    else{
+        location.href = "/recipes"
     }
 }

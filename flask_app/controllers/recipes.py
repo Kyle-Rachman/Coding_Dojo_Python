@@ -60,4 +60,4 @@ def destroy_recipe(recipe_id):
     if current_recipe.users_id != session["user_id"]:
         return redirect("/recipes")
     recipe.Recipe.destroy_recipe_by_id(recipe_id)
-    return redirect("/recipes")
+    return jsonify(message="Deleted recipe")
