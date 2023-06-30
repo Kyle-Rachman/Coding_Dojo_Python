@@ -32,9 +32,9 @@
                     <tr>
                         <td>Under 30 minutes?</td>
                         <td>{% if recipe.under %}
-                            Yes
+                            Under
                         {% else %}
-                            No
+                            Nope
                         {% endif %}</td>
                     </tr>
                     <tr>
@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td>Date Made:</td>
-                        <td>{{ recipe.date_made }}</td>
+                        <td>{{ recipe.date_made.strftime("%B %d, %Y") }}</td>
                     </tr>
                 </tbody>
             </table>

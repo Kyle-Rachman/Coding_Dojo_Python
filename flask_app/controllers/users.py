@@ -13,7 +13,7 @@ def register():
     if not session["user_id"]:
         return jsonify(get_flashed_messages(category_filter=["registration"]))
     session["user_name"] = user.User.get_user_by_id(session["user_id"]).first_name
-    return jsonify(message="Add a user!")
+    return jsonify(message="Adding a user!")
 
 # READ - Controller Users
 

@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import app
-from flask import flash, redirect
+from flask import flash
 from flask_app.models import user
 
 class Recipe:
@@ -39,7 +39,7 @@ class Recipe:
         results = connectToMySQL('recipes_schema').query_db(query)
         recipes = []
         for recipe in results:
-            recipes.append(cls(recipe))
+            recipes.append(recipe)
         return recipes
     
     @classmethod
@@ -54,9 +54,65 @@ class Recipe:
         recipes = []
         for recipe in results:
             recipe_with_chef = cls(recipe)
-            recipe_with_chef.chef = user.User.get_user_by_id_with_recipes(recipe['users.id'])
+            recipe_with_chef.chef = user.User({
+                'id' : results[0]['users.id'],
+                'first_name' : results[0]['first_name'],
+                'last_name' : results[0]['last_name'],
+                'email' : results[0]['email'],
+                'password' : results[0]['password'],
+                'created_at' : results[0]['users.created_at'],
+                'updated_at' : results[0]['users.updated_at']
+            })
             recipes.append(recipe_with_chef)
         return recipes
+    
+    @classmethod
+    def get_all_recipes_with_chefs_serializable(cls):
+        query = """
+            SELECT *
+            FROM recipes
+            LEFT JOIN users
+            ON users.id = recipes.users_id
+        ;"""
+        results = connectToMySQL('recipes_schema').query_db(query)
+        recipes = []
+        for recipe in results:
+            recipe_with_chef = cls(recipe)
+            recipe_with_chef.chef = user.User({
+                'id' : recipe['users.id'],
+                'first_name' : recipe['first_name'],
+                'last_name' : recipe['last_name'],
+                'email' : recipe['email'],
+                'password' : recipe['password'],
+                'created_at' : recipe['users.created_at'],
+                'updated_at' : recipe['users.updated_at']
+            }).__dict__
+            recipes.append(recipe_with_chef.__dict__)
+        return recipes
+    
+    @classmethod
+    def get_newest_recipe_with_chef_serializable(cls):
+        query = """
+            SELECT *
+            FROM recipes
+            LEFT JOIN users
+            ON users.id = recipes.users_id
+            ORDER BY recipes.updated_at DESC
+            LIMIT 1
+        ;"""
+        results = connectToMySQL('recipes_schema').query_db(query)
+        recipe_with_chef = cls(results[0])
+        recipe_with_chef.date_made = recipe_with_chef.date_made.strftime("%B %d, %Y")
+        recipe_with_chef.chef = user.User({
+                'id' : results[0]['users.id'],
+                'first_name' : results[0]['first_name'],
+                'last_name' : results[0]['last_name'],
+                'email' : results[0]['email'],
+                'password' : results[0]['password'],
+                'created_at' : results[0]['users.created_at'],
+                'updated_at' : results[0]['users.updated_at']
+            }).__dict__
+        return recipe_with_chef.__dict__
 
     @classmethod
     def get_recipe_by_id(cls, recipe_id):

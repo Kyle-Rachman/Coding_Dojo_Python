@@ -5,7 +5,7 @@
 
 .container{
     padding: 20px;
-    width: 800px;
+    max-width: 1000px;
 }
 
 .header{
@@ -21,6 +21,12 @@
     align-items: first baseline;
     width: 100%;
     padding: 0px 30px;
+}
+
+.subcontainer{
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
 }
 
 .links{
@@ -41,34 +47,16 @@ table{
     text-align: center;
 }
 
-form{
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 40px;
-}
-
-.row{
-    width: 400px;
-}
-
-.gen-info{
-    margin: 20px 0px;
-}
-
-.details{
-    margin-top: 75px;
-}
-
 .under-30{
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 input[type="radio"]{
     margin-left: 40px;
 }
 
-.details > button{
-    margin-top: 70px;
+.recipe-content{
+    width: 500px;
 }
 
 .content{
@@ -80,4 +68,19 @@ input[type="radio"]{
 
 .content > table{
     text-align: left;
+}
+
+.errors{
+    background-color: lightpink;
+    color: darkred;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.errors > p{
+    margin: 10px;
+}
+
+.edit-recipe{
+    width: 500px;
 }
